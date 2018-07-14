@@ -216,14 +216,14 @@ Leviatom是行政机构，只负责提供程序执行环境，不能变更运行
 
 在基于TEE的环境下，我们提出了在共识节点上构建Leviatom的架构层，这是介于操作系统底层内核与上层共识应用之间的中间层，它用于保证：1）其与上层应用程序之间能够相互证实，2）保证在节点之间有互相证实的基础。这样基于Leviatom之间的互信关系便能够推导整个网络之间的互信关系。而Leviatom网络的全网互信执行环境的理论基础便是建立在Leviatom的第二个特性之上的。
 
-假设Leviatom之间存在着互联的关系以这两个Leviatom之间的证实作为开始，那么他们之间便有了信任或者不信任这两种关系。而随着时间的推移，这种信任或者不信任的关系会逐渐变淡。我们使用一个位向量（Bitarray）来表示两个Leviatom之间的互信关系，假设两者之间开始建立关系的时间为<img src="http://www.sciweavers.org/tex2img.php?eq=t_0&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="t_0" width="18" height="17" />，那么，两者之间的互信向量可以在<img src="http://www.sciweavers.org/tex2img.php?eq=t_i&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="t_i" width="15" height="17" />时间上表现为 （i%32<<32）位上的值为1如果在两者之间是互信的，或者是0如果两者之间是不互信的，这样来看一个互信向量的值越大，则两者之间互信程度越高，越小则互信程度越小。
+假设Leviatom之间存在着互联的关系以这两个Leviatom之间的证实作为开始，那么他们之间便有了信任或者不信任这两种关系。而随着时间的推移，这种信任或者不信任的关系会逐渐变淡。我们使用一个位向量（Bitarray）来表示两个Leviatom之间的互信关系，假设两者之间开始建立关系的时间为$t_{0}$，那么，两者之间的互信向量可以在t_i时间上表现为 （i%32<<32）位上的值为1如果在两者之间是互信的，或者是0如果两者之间是不互信的，这样来看一个互信向量的值越大，则两者之间互信程度越高，越小则互信程度越小。
 
 <div align=center>
  <img src="./img/1.png" /> 
 </div>
 <div align=center>图 1 Leviatom-1 和 Leviatom-2 之间的关系随时间变化的图示</div>
 
-在时间<img src="http://www.sciweavers.org/tex2img.php?eq=t_i&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="t_i" width="15" height="17" />两者为信任，则更新信任向量到<img src="http://www.sciweavers.org/tex2img.php?eq=t_%7Bi%2B1%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="t_{i+1}" width="32" height="17" />的形式，而在<img src="http://www.sciweavers.org/tex2img.php?eq=t_%7Bi%2B1%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="t_{i+1}" width="32" height="17" />为不信任事则更新到<img src="http://www.sciweavers.org/tex2img.php?eq=t_%7Bi%2B2%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="t_{i+2}" width="32" height="17" />时间的形式。
+在时间t_i两者为信任，则更新信任向量到t_i+1的形式，而在t_i+1为不信任事则更新到t_i+2时间的样子。
 
 ### 2.2.2.用Gossip协议族构建全网信任图模型
 
